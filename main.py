@@ -23,6 +23,7 @@ def generate_password():
     pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+#TODO 2.1: Guardar datos de entrada que provienen de la interfas de usuario
 def save():
 
     website = website_entry.get()
@@ -33,7 +34,8 @@ def save():
         messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty.")
     else:
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} "
-                                                      f"\nPassword: {password} \nIs it ok to save?")
+                                                      f"\nPassword: {password}"
+                                                              f" \nIs it ok to save?")
         if is_ok:
             with open("data.txt", "a") as data_file:
                 data_file.write(f"{website} | {email} | {password}\n")
@@ -43,16 +45,18 @@ def save():
 
 # ---------------------------- UI SETUP ------------------------------- #
 
+#TODO 1.1: Creando Interfas de Usuario, Titulo, Pading
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
 
-canvas = Canvas(height=200, width=200)
-logo_img = PhotoImage(file="logo.png")
-canvas.create_image(100, 100, image=logo_img)
-canvas.grid(row=0, column=1)
+#TODO 1.2: COnfigurando Imagen
+canvas = Canvas(height=200, width=200)  #alto y ancho de ventana
+logo_img = PhotoImage(file="logo.png")  #Guardo en variable Imagen de aplicacion
+canvas.create_image(100, 100, image=logo_img)   #Posicionamiento: X, Y  +  imagen
+canvas.grid(row=0, column=1)    #Posicion de imagen
 
-#Labels
+#TODO 1.3: Etiquetas
 website_label = Label(text="Website:")
 website_label.grid(row=1, column=0)
 email_label = Label(text="Email/Username:")
@@ -60,20 +64,20 @@ email_label.grid(row=2, column=0)
 password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
-#Entries
-website_entry = Entry(width=35)
+#TODO 1.4: Entradas de datos
+website_entry = Entry(width=43)
 website_entry.grid(row=1, column=1, columnspan=2)
-website_entry.focus()
-email_entry = Entry(width=35)
+website_entry.focus()   #para que el cursor inicie en esta entrada en particular
+email_entry = Entry(width=43)
 email_entry.grid(row=2, column=1, columnspan=2)
-email_entry.insert(0, "")
-password_entry = Entry(width=21)
+email_entry.insert(0, "@")
+password_entry = Entry(width=33)
 password_entry.grid(row=3, column=1)
 
-# Buttons
-generate_password_button = Button(text="Generate Password", command=generate_password)
+# TODO 1.5: Botones
+generate_password_button = Button(text="Generate", command=generate_password)
 generate_password_button.grid(row=3, column=2)
-add_button = Button(text="Add", width=36, command=save)
+add_button = Button(text="Add", width=15, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
 
-window.mainloop()
+window.mainloop()   #Ejecutor de Ventana
